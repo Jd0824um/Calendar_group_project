@@ -1,16 +1,15 @@
 <?php
-  session_start();
-  if (isset($_SESSION["authenticated"])) {
-    echo "<script> location.href='index.php'; </script>";
-  }
+session_start();
+if (isset($_SESSION["authenticated"])) {
+  echo "<script> location.href='index.php'; </script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
 <head>
-
-  <link href="assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  <?php include 'styles.html';?>
+  <title>Login</title>
+  <?php include 'styles.html'; ?>
 
   <style>
     body {
@@ -34,32 +33,6 @@
       padding: 20px;
       color: black;
       text-decoration: none;
-    }
-
-    .search {
-      width: 150px;
-    }
-
-    .nav-wrapper {
-      font-family: "Roboto Condensed", sans-serif;
-      letter-spacing: 4px;
-      font-weight: 400;
-      font-size: 16px;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: white;
-      background-color: rgba(10, 10, 10, 0.9);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0;
-      padding: 10;
-    }
-
-    Body {
-      background-color: rgba(0, 0, 0, 0.831);
-      font-family: Calibri, Helvetica, sans-serif;
-
     }
 
     button {
@@ -94,45 +67,56 @@
       margin: 10px 5px;
     }
 
-    .container {
-      background-color: rgba(0, 0, 0, 0.708);
-      padding: 25px;
-    }
-
     .remember {
       color: white;
     }
   </style>
 </head>
+
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" style="background-color: rgba(10, 10, 10, 0.9)">
-  <title>Violin Lessons</title>
-  <?php include 'navbar.php';?>
-  <form method="POST" action="index.php">
-    <head>
-      <h1 style="text-align: center; color:white; font-family:verdana">Login</h1>
-    </head>
-    <body>
-      <form>
+  <main>
+    <div class="page-loader">
+      <div class="loader">Loading...</div>
+    </div>
+    <?php include 'navbar.php'; ?>
+    <div>
+      <section class="module bg-dark-60 portfolio-page-header" data-background="im_violin0.jpg">
         <div class="container">
-          <label style="color: white; font-family:verdana">Username:</label>
-          <input name="username" type="text" placeholder="Enter Username" name="username" required>
-          <br>
-          <label style="color: white; font-family:verdana">Password:</label>
-          <input type="password" placeholder="Enter Password" name="password" required>
-          <button style="font-family:verdana;" onclick="authenticate()" type="submit">Login</button>
-          <div class="remember">
-            <input style="font-family:verdana;" type="checkbox" checked="checked;">Remember me?
+          <div class="row">
+            <form method="POST" action="index.php">
+              <head>
+                <h1 style="text-align: center; color:white; font-family:Roboto Condensed, sans-serif;">Login</h1>
+              </head>
+              <form>
+                <div class="container">
+                  <label style="color: white; font-family:Roboto Condensed, sans-serif;">Username:</label>
+                  <input name="username" type="text" placeholder="Enter Username" name="username" required>
+                  <br>
+                  <label style="color: white; font-family:Roboto Condensed, sans-serif;">Password:</label>
+                  <input type="password" placeholder="Enter Password" name="password" required>
+                  <button style="font-family:Roboto Condensed, sans-serif;" onsubmit="authenticate()" type="submit">Login</button>
+                  <div class="remember">
+                    <input style="font-family:Roboto Condensed, sans-serif;" type="checkbox" checked="checked;"/>Remember me?
+                  </div>
+                </div>
+              </form>
           </div>
         </div>
-      </form>
-    </body>
+      </section>
+      <?php include 'footer.html'; ?>
+      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </div>
+  </main>
+  <?php include 'mainScripts.html'; ?>
+</body>
+
 </html>
 
 <script>
-      function authenticate() {
-        <?php
-          session_start();
-          $_SESSION["authenticated"] = "true";
-        ?>
-      }
+  function authenticate() {
+    <?php
+    session_start();
+    $_SESSION["authenticated"] = "true";
+    ?>
+  }
 </script>
