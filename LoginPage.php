@@ -1,50 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-         body {
-            margin: 0;
-        }
-        .title {
-            text-align: center;
-            background-color: black;
-            color: white;
-            padding: 10px 0;
-            margin-top: 10px;
-        }
 
-        .body-row {
-            display: flex;
-            justify-content: space-evenly;
-        }
+<head>
+  <style>
+    body {
+      margin: 0;
+    }
 
-        .button {
-            padding: 20px;
-            color: black;
-            text-decoration: none;
-        }
+    .title {
+      text-align: center;
+      background-color: black;
+      color: white;
+      padding: 10px 0;
+      margin-top: 10px;
+    }
 
-        .search {
-            width: 150px;
-        }
+    .body-row {
+      display: flex;
+      justify-content: space-evenly;
+    }
 
-        .nav-wrapper {
-            font-family: "Roboto Condensed", sans-serif;
-            letter-spacing: 4px;
-            font-weight: 400;
-            font-size: 16px;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: white;
-            background-color: rgba(10, 10, 10, 0.9);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0;
-            padding: 10;
-        }
+    .button {
+      padding: 20px;
+      color: black;
+      text-decoration: none;
+    }
 
-        Body {
+    .search {
+      width: 150px;
+    }
+
+    .nav-wrapper {
+      font-family: "Roboto Condensed", sans-serif;
+      letter-spacing: 4px;
+      font-weight: 400;
+      font-size: 16px;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: white;
+      background-color: rgba(10, 10, 10, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0;
+      padding: 10;
+    }
+
+    Body {
       background-color: rgba(0, 0, 0, 0.831);
       font-family: Calibri, Helvetica, sans-serif;
 
@@ -90,42 +92,46 @@
     .remember {
       color: white;
     }
-    </style>
+  </style>
 </head>
 
+<?php
+$loggedIn = (bool) $_POST['loggedIn'];
+
+?>
+
 <body style="background-color: rgba(10, 10, 10, 0.9)">
-    <title>Violin Lessons </title>
-    <form method="POST">
-        <nav>
-            <div style="background-color: rgba(10, 10, 10, 0.9)" ; class="nav-wrapper">
-                <p font-family:"verdana">Violin Lessons</p>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <a style= "text-decoration: none; color:white; " type="button"  href="LoginPage.php">Login</a>
-                    <a Style= "text-decoration: none; color:white; " type="button"  href="ProjectHomePage.php">Home</a>
-                    <a Style= "text-decoration: none; color:white; " type="button" style="color:white;" href="Calendar.php">Calendar</a></li>
-                    <a Style= "text-decoration: none; color:white; " type="button" style="color:white;" href="Contact.php">Contact</a></li>
-                </ul>
-                <div class="search">
-                    <input type="text" placeholder="Search..">
-                </div>
-            </div>
-        </nav>
+  <title>Violin Lessons</title>
+  <form method="POST" action="ProjectHomePage.php">
+    <nav>
+      <div style="background-color: rgba(10, 10, 10, 0.9)" class="nav-wrapper">
+        <p style="font-family:verdana">Violin Lessons</p>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <a style="text-decoration: none; color:white;" type="button" href="LoginPage.php">Login</a>
+          <a Style="text-decoration: none; color:white;" type="button" href="ProjectHomePage.php">Home</a>
+          <a Style="text-decoration: none; color:white;" type="button" style="color:white;" href="Calendar.php">Calendar</a></li>
+          <a Style="text-decoration: none; color:white;" type="button" style="color:white;" href="Contact.php">Contact</a></li>
+        </ul>
+        <div class="search">
+          <input type="text" placeholder="Search..">
+        </div>
+      </div>
+    </nav>
     <head>
-    <h1 style="text-align: center; color:white; font-family:verdana">Log in </h1>
-</head>
-<body>
+      <h1 style="text-align: center; color:white; font-family:verdana">Login</h1>
+    </head>
+    <body>
       <form>
         <div class="container">
-          <label style="color: white;">Username : </label>
-          <input type="text" placeholder="Enter Username" name="username" required>
+          <label style="color: white; font-family:verdana">Username:</label>
+          <input name="username" type="text" placeholder="Enter Username" name="username" required>
           <br>
-          <label style="color: white; font-family:verdana">Password : </label>
+          <label style="color: white; font-family:verdana">Password:</label>
           <input type="password" placeholder="Enter Password" name="password" required>
-          <button style= "font-family:verdana;" type= submit">Login</button>
+          <button style="font-family:verdana;" type="submit">Login</button>
           <div class="remember">
-            <input style= "font-family:verdana;" type="checkbox" checked="checked;">Remember me
+            <input style="font-family:verdana;" type="checkbox" checked="checked;">Remember me?
           </div>
-          <a style="color: white;" "font-family:verdana;"> password?</a>
         </div>
       </form>
     </body>
