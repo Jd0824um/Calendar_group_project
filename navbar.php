@@ -12,29 +12,25 @@ session_start();
                 <?php
                 if (isset($_SESSION["authenticated"])) {
                     echo ('
-                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Home</a>
-                  <ul class="dropdown-menu">
-                    <li><a href="index.php">Home</a></li>
-                  </ul>
+                <li><a href="index.php">Home</a>
                 </li>
-                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Profile</a>
+                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Me</a>
                     <ul class="dropdown-menu">
-                    <li><a href="profile.php">Profile</a></li>
+                      <li><a href="calendar.php">Calendar</a></li>
+                      <li><a href="profile.php">Profile</a></li>
                     </ul>
                 </li>
-                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Calendar</a>
-                  <ul class="dropdown-menu">
-                    <li><a href="calendar.php">Calendar</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Logout</a>
+                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">System</a>
                     <ul class="dropdown-menu">
+                    <li><a href="contact.php">Contact Us</a></li>
                     <li><a href="logout.php">Logout</a></li>
                     </ul>
                 </li>');
                 } else {
-                    echo ('<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Login</a>
+                    echo ('<li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">System</a>
                   <ul class="dropdown-menu">
+                    <li><a href="contact.php">Contact Us</a></li>
+                    <li><a href="register.php">Register</a></li>
                     <li><a href="LoginPage.php">Login</a></li>
                   </ul>
                 </li>');

@@ -1,67 +1,68 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
 
 <head>
-    <style>
-        body {
-            margin: 0;
-        }
-
-        .title {
-            text-align: center;
-            background-color: black;
-            color: white;
-            padding: 10px 0;
-            margin-top: 10px;
-        }
-
-        .body-row {
-            display: flex;
-            justify-content: space-evenly;
-        }
-
-        .button {
-            padding: 20px;
-            color: black;
-            text-decoration: none;
-        }
-
-        .search {
-            width: 150px;
-        }
-
-        .nav-wrapper {
-            font-family: "Roboto Condensed", sans-serif;
-            letter-spacing: 4px;
-            font-weight: 400;
-            font-size: 16px;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: white;
-            background-color: rgba(10, 10, 10, 0.9);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0;
-            padding: 10px;
-        }
-    </style>
+    <title>Contact Us</title>
+    <?php include 'styles.html'; ?>
 </head>
-<title>Violin Lessons </title>
-<form method="POST">
-    <nav>
-        <div style="background-color: rgba(10, 10, 10, 0.9)" ; class="nav-wrapper">
-            <p style="font-family:verdana">Music Lessons</p>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <a style="text-decoration: none; color:white; " type="button" href="LoginPage.php">Login</a>
-                <a Style="text-decoration: none; color:white; " type="button" href="ProjectHomePage.php">Home</a>
-                <a Style="text-decoration: none; color:white; " type="button" style="color:white;" href="Calendar.php">Calendar</a></li>
-                <a Style="text-decoration: none; color:white; " type="button" style="color:white;" href="Contact.php">Contact</a></li>
-            </ul>
-            <div class="search">
-                <input type="text" placeholder="Search..">
-            </div>
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+        <div class="page-loader">
+            <div class="loader">Loading...</div>
         </div>
-    </nav>
-    </div>
-   
+        <?php include 'navbar.php'; ?>
+        <div class="main">
+            <section class="module bg-dark-60 contact-page-header bg-dark">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <h2 class="module-title font-alt">Contact Us</h2>
+                            <div class="module-subtitle font-serif"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="module">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4 class="font-alt">Get in touch</h4><br />
+                            <form id="contactForm" role="form" method="post" action="contact.php">
+                                <div class="form-group">
+                                    <label class="sr-only" for="name">Name</label>
+                                    <input class="form-control" type="text" id="name" name="name" placeholder="Your Name*" required="required" data-validation-required-message="Please enter your name." />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="email">Email</label>
+                                    <input class="form-control" type="email" id="email" name="email" placeholder="Your Email*" required="required" data-validation-required-message="Please enter your email address." />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="7" id="message" name="message" placeholder="Your Message*" required="required" data-validation-required-message="Please enter your message."></textarea>
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-block btn-round btn-d" id="cfsubmit" type="submit">Submit</button>
+                                </div>
+                            </form>
+                            <div class="ajax-response font-alt" id="contactFormResponse"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="font-alt">Additional info</h4><br />
+                            <p>Violin is the most beautiful instrument in the world (I believe), learn to play it.</p>
+                            <img src="im_violin1.jpg" />
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <?php include 'footer.html'; ?>
+        </div>
+        <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </main>
+</body>
+<?php include 'mainScripts.html'; ?>
+
 </html>

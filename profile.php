@@ -27,8 +27,11 @@
         <div class="container">
           <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="gallery-item">
-              <div class="gallery-image">
-                <img src="teacher.jpg" alt="Teacher1" /></div>
+              <img src="teacher.jpg" alt="Teacher1" />
+              <div>
+                <button class="btn btn-d btn-circle" data-target="#uploadImgModal" data-toggle="modal">Change Photo</button>
+              </div>
+              <?php include 'uploadImage.php'; ?>
             </div>
           </div>
           <div class="col-sm-6 col-md-6 col-lg-6">
@@ -36,6 +39,9 @@
               <h4 class="font-alt mb-0">Orchestra</h4>
               <hr class="divider-w mt-10 mb-20">
               <p>Mr. Green has studied piano, guitar, voice and percussion through various schools, including School of The Arts High School and San Francisco State University, as well as piano lessons with jazz masters such as Mark Little, Smith Dobson, Carlos Federico, and currently John Calloway. He teaches all ages and truly believes that he's been teaching informally since his rock days as a teenager at age 15. Formally, he has been teaching privately for about ten years, and has been with New Mozart School since 2007. Also, he is a professional musician and has been playing with various groups for the last twelve years, including his own band, Mascabeza, and others such as Benny Belard's band, Avance, Los Rumberos, and many more.</p>
+              <form action="editProfile.php">
+                <button class="btn btn-d btn-circle" type="submit">edit</button>
+              </form>
             </div>
           </div>
         </div>
@@ -46,5 +52,6 @@
     <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
   </main>
 </body>
+
 </html>
 <?php include 'mainScripts.html'; ?>
