@@ -4,9 +4,10 @@
 
 <head>
     <style>
-         body {
+        body {
             margin: 0;
         }
+
         .title {
             text-align: center;
             background-color: black;
@@ -48,21 +49,40 @@
     </style>
 </head>
 
+<?php
+    $loggedIn;
+    if (isset($_POST['username'])) {
+        $loggedIn = (boolean) $_POST['username'];
+    } else {
+        $loggedIn = null;
+    }
+
+    $profile;
+    if (isset($_POST['profile'])) {
+        $profile = (boolean) $_POST['profile'];
+    } else {
+        $profile = null;
+    }
+?>
+
 <body style="background-color: rgba(10, 10, 10, 0.9)">
     <title>Violin Lessons </title>
     <form method="POST">
         <nav>
             <div style="background-color: rgba(10, 10, 10, 0.9)" ; class="nav-wrapper">
-                <p font-family:"verdana">Violin Lessons</p>
+                <p style="font-family:verdana">Violin Lessons</p>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <a style= "text-decoration: none; color:white; " type="button"  href="LoginPage.php">Login</a>
-                    <a Style= "text-decoration: none; color:white; " type="button"  href="ProjectHomePage.php">Home</a>
-                    <a Style= "text-decoration: none; color:white; " type="button" style="color:white;" href="Calendar.php">Calendar</a></li>
-                    <a Style= "text-decoration: none; color:white; " type="button" style="color:white;" href="Contact.php">Contact</a></li>
+                    <?php 
+                        if (is_bool($loggedIn || $profile)) {
+                            echo("<a name='profile' style='text-decoration: none; color:white;' type='button' href='profile.php'>Profile</a>");
+                        } else {
+                            echo("<a style='text-decoration: none; color:white;' type='button' href='LoginPage.php'>Login</a>");
+                        }
+                    ?>
+                    <a Style="text-decoration: none; color:white;" type="button" href="ProjectHomePage.php">Home</a>
+                    <a Style="text-decoration: none; color:white;" type="button" style="color:white;" href="Calendar.php">Calendar</a></li>
+                    <a Style="text-decoration: none; color:white;" type="button" style="color:white;" href="Contact.php">Contact</a></li>
                 </ul>
-                <div class="search">
-                    <input type="text" placeholder="Search..">
-                </div>
             </div>
         </nav>
         </div>
@@ -72,7 +92,6 @@
     </form>
 </body>
 <footer>
-    <p>PICTURE BY </p>
 </footer>
 
 </html>
