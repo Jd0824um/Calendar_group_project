@@ -1,8 +1,6 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <style>
          body {
             margin: 0;
@@ -45,6 +43,53 @@
             margin: 0;
             padding: 10;
         }
+
+        Body {
+      background-color: rgba(0, 0, 0, 0.831);
+      font-family: Calibri, Helvetica, sans-serif;
+
+    }
+
+    button {
+      background-color: rgba(14, 20, 26, 0.899);
+      width: 100%;
+      color: white;
+      padding: 15px;
+      margin: 10px 0px;
+      border: none;
+      cursor: pointer;
+    }
+
+    form {
+      border: 2px solid;
+    }
+
+    input[type=text],
+    input[type=password] {
+      width: 90%;
+      margin: 8px 0;
+      padding: 13px 20px;
+      display: inline-block;
+    }
+
+    button:hover {
+      opacity: 0.7;
+    }
+
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      margin: 10px 5px;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.708);
+      padding: 25px;
+    }
+
+    .remember {
+      color: white;
+    }
     </style>
 </head>
 
@@ -65,14 +110,23 @@
                 </div>
             </div>
         </nav>
+    <head>
+    <h1 style="text-align: center; color:white; font-family:verdana">Log in </h1>
+</head>
+<body>
+      <form>
+        <div class="container">
+          <label style="color: white;">Username : </label>
+          <input type="text" placeholder="Enter Username" name="username" required>
+          <br>
+          <label style="color: white; font-family:verdana">Password : </label>
+          <input type="password" placeholder="Enter Password" name="password" required>
+          <button style= "font-family:verdana;" type= submit">Login</button>
+          <div class="remember">
+            <input style= "font-family:verdana;" type="checkbox" checked="checked;">Remember me
+          </div>
+          <a style="color: white;" "font-family:verdana;"> password?</a>
         </div>
-        <div class="body-row">
-            <img src="violin.png" />
-        </div>
-    </form>
-</body>
-<footer>
-    <p>PICTURE BY </p>
-</footer>
-
+      </form>
+    </body>
 </html>

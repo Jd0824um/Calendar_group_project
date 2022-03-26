@@ -2,10 +2,9 @@
 
 <head>
     <style>
-        body {
+         body {
             margin: 0;
         }
-
         .title {
             text-align: center;
             background-color: black;
@@ -42,7 +41,7 @@
             justify-content: space-between;
             align-items: center;
             margin: 0;
-            padding: 10px;
+            padding: 10;
         }
     </style>
 </head>
@@ -63,5 +62,5 @@
         </div>
     </nav>
     </div>
-   
+
 </html>
