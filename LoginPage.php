@@ -1,7 +1,17 @@
+<?php
+  session_start();
+  if (isset($_SESSION["authenticated"])) {
+    echo "<script> location.href='index.php'; </script>";
+  }
+?>
 <!DOCTYPE html>
-<html>
+<html lang="en-US" dir="ltr">
 
 <head>
+
+  <link href="assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <?php include 'styles.html';?>
+
   <style>
     body {
       margin: 0;
@@ -94,29 +104,10 @@
     }
   </style>
 </head>
-
-<?php
-$loggedIn = (bool) $_POST['loggedIn'];
-
-?>
-
-<body style="background-color: rgba(10, 10, 10, 0.9)">
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" style="background-color: rgba(10, 10, 10, 0.9)">
   <title>Violin Lessons</title>
-  <form method="POST" action="ProjectHomePage.php">
-    <nav>
-      <div style="background-color: rgba(10, 10, 10, 0.9)" class="nav-wrapper">
-        <p style="font-family:verdana">Violin Lessons</p>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <a style="text-decoration: none; color:white;" type="button" href="LoginPage.php">Login</a>
-          <a Style="text-decoration: none; color:white;" type="button" href="ProjectHomePage.php">Home</a>
-          <a Style="text-decoration: none; color:white;" type="button" style="color:white;" href="Calendar.php">Calendar</a></li>
-          <a Style="text-decoration: none; color:white;" type="button" style="color:white;" href="Contact.php">Contact</a></li>
-        </ul>
-        <div class="search">
-          <input type="text" placeholder="Search..">
-        </div>
-      </div>
-    </nav>
+  <?php include 'navbar.php';?>
+  <form method="POST" action="index.php">
     <head>
       <h1 style="text-align: center; color:white; font-family:verdana">Login</h1>
     </head>
@@ -128,7 +119,7 @@ $loggedIn = (bool) $_POST['loggedIn'];
           <br>
           <label style="color: white; font-family:verdana">Password:</label>
           <input type="password" placeholder="Enter Password" name="password" required>
-          <button style="font-family:verdana;" type="submit">Login</button>
+          <button style="font-family:verdana;" onclick="authenticate()" type="submit">Login</button>
           <div class="remember">
             <input style="font-family:verdana;" type="checkbox" checked="checked;">Remember me?
           </div>
@@ -136,3 +127,12 @@ $loggedIn = (bool) $_POST['loggedIn'];
       </form>
     </body>
 </html>
+
+<script>
+      function authenticate() {
+        <?php
+          session_start();
+          $_SESSION["authenticated"] = "true";
+        ?>
+      }
+</script>

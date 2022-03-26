@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  if (!isset($_SESSION["authenticated"])){
+    echo "<script> location.href='index.php'; </script>";
+  }
+?>
 <html>
 
 <head>
@@ -49,7 +55,7 @@
 <form method="POST">
     <nav>
         <div style="background-color: rgba(10, 10, 10, 0.9)" ; class="nav-wrapper">
-            <p font-family:"verdana">Violin Lessons</p>
+            <p style="font-family: verdana">Violin Lessons</p>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <a style="text-decoration: none; color:white; " type="button" href="LoginPage.php">Login</a>
                 <a Style="text-decoration: none; color:white; " type="button" href="ProjectHomePage.php">Home</a>
