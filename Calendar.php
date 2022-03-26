@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
+    <title>Calendar</title>
     <?php include 'styles.html';?>
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 	  <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400|Roboto+Condensed:400|Fjalla+One:400'>
