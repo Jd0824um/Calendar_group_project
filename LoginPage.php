@@ -80,7 +80,7 @@ if (isset($_SESSION["authenticated"])) {
     </div>
     <?php include 'navbar.php'; ?>
     <div>
-      <section class="module bg-dark-60 portfolio-page-header" data-background="im_violin0.jpg">
+      <section class="module portfolio-page-header" data-background="im_violin0.jpg">
         <div class="container">
           <div class="row">
             <form method="POST" action="index.php">
@@ -109,7 +109,6 @@ if (isset($_SESSION["authenticated"])) {
   </main>
   <?php include 'mainScripts.html'; ?>
 </body>
-
 </html>
 
 <script>
