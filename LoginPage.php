@@ -1,10 +1,10 @@
+<!DOCTYPE html>
 <?php
 session_start();
 if (isset($_SESSION["authenticated"])) {
   echo "<script> location.href='index.php'; </script>";
 }
 ?>
-<!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
 <head>
@@ -70,6 +70,11 @@ if (isset($_SESSION["authenticated"])) {
     .remember {
       color: white;
     }
+
+    #login {
+      padding-top: 260px;
+      padding-bottom: 265px;
+    }
   </style>
 </head>
 
@@ -79,14 +84,12 @@ if (isset($_SESSION["authenticated"])) {
       <div class="loader">Loading...</div>
     </div>
     <?php include 'navbar.php'; ?>
-    <div>
-      <section class="module portfolio-page-header" data-background="im_violin0.jpg">
+    <div class="main">
+      <section id="login" class="module portfolio-page-header" data-background="im_violin0.jpg">
         <div class="container">
           <div class="row">
             <form method="POST" action="index.php">
-              <head>
-                <h1 style="text-align: center; color:white; font-family:Roboto Condensed, sans-serif;">Login</h1>
-              </head>
+              <h1 style="text-align: center; color:white; font-family:Roboto Condensed, sans-serif;">Login</h1>
               <form>
                 <div class="container">
                   <label style="color: white; font-family:Roboto Condensed, sans-serif;">Username:</label>
@@ -96,7 +99,7 @@ if (isset($_SESSION["authenticated"])) {
                   <input type="password" placeholder="Enter Password" name="password" required>
                   <button style="font-family:Roboto Condensed, sans-serif;" onsubmit="authenticate()" type="submit">Login</button>
                   <div class="remember">
-                    <input style="font-family:Roboto Condensed, sans-serif;" type="checkbox" checked="checked;"/>Remember me?
+                    <input style="font-family:Roboto Condensed, sans-serif;" type="checkbox" checked="checked;" />Remember me?
                   </div>
                 </div>
               </form>
@@ -105,12 +108,12 @@ if (isset($_SESSION["authenticated"])) {
       </section>
       <?php include 'footer.html'; ?>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-    </div>
+      </div>
   </main>
-  <?php include 'mainScripts.html'; ?>
 </body>
-</html>
 
+</html>
+<?php include 'mainScripts.html'; ?>
 <script>
   function authenticate() {
     <?php

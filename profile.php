@@ -27,7 +27,8 @@
         <div class="container">
           <div class="col-sm-6 col-md-6 col-lg-6">
             <div class="gallery-item">
-              <div class="gallery-image"><a class="gallery" href="assets/images/gallery/big/big_3.jpg" title="Title 1"><img src="teacher.jpg" alt="Teacher1" /></div>
+              <div class="gallery-image">
+                <img src="teacher.jpg" alt="Teacher1" /></div>
             </div>
           </div>
           <div class="col-sm-6 col-md-6 col-lg-6">
@@ -44,7 +45,6 @@
     </div>
     <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
   </main>
-  <?php include 'mainScripts.html'; ?>
 </body>
-
 </html>
+<?php include 'mainScripts.html'; ?>

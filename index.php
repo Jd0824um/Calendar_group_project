@@ -12,7 +12,7 @@
     </div>
     <?php include 'navbar.php'; ?>
     <div class="main">
-      <section class="module bg-dark-60 portfolio-page-header" data-background="indexImg.jpg">
+      <section class="module bg-dark-60 portfolio-page-header" style="padding-bottom: 567px;" data-background="indexImg.jpg">
         <div class="container">
           <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
@@ -26,7 +26,6 @@
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </div>
   </main>
-  <?php include 'mainScripts.html'; ?>
 </body>
-
 </html>
+<?php include 'mainScripts.html'; ?>
