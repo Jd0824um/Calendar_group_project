@@ -1,72 +1,46 @@
-<?php
-  session_start();
-  if (!isset($_SESSION["authenticated"])){
-    echo "<script> location.href='index.php'; </script>";
-  }
-?>
-<html>
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <?php include 'styles.html';?>
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	  <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400|Roboto+Condensed:400|Fjalla+One:400'>
+	<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 
-<head>
-    <style>
-         body {
-            margin: 0;
-        }
-        .title {
-            text-align: center;
-            background-color: black;
-            color: white;
-            padding: 10px 0;
-            margin-top: 10px;
-        }
+      <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+      <div class="page-loader">
+        <div class="loader">Loading...</div>
+      </div>
+      <?php include 'navbar.php';?>
+      <div class="main">
+        <section class="module">
+          <div class="container">
+			<body>
+			  <div class="calendar-wrapper">
+			  <div id="divStudents"></div>
+			  </div>
 
-        .body-row {
-            display: flex;
-            justify-content: space-evenly;
-        }
+			  <div class="calendar-wrapper">
+			  <div id="divScheduler"></div>
+			  </div>
+			  
+			  <div class="calendar-wrapper">
+			  <button id="btnPrev" type="button">Prev</button>
+				  <button id="btnNext" type="button">Next</button>
+			  <div id="divCal"></div>
+			</div>
+			  
+				<script src="js/index.js"></script>
 
-        .button {
-            padding: 20px;
-            color: black;
-            text-decoration: none;
-        }
-
-        .search {
-            width: 150px;
-        }
-
-        .nav-wrapper {
-            font-family: "Roboto Condensed", sans-serif;
-            letter-spacing: 4px;
-            font-weight: 400;
-            font-size: 16px;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: white;
-            background-color: rgba(10, 10, 10, 0.9);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0;
-            padding: 10;
-        }
-    </style>
-</head>
-<title>Violin Lessons </title>
-<form method="POST">
-    <nav>
-        <div style="background-color: rgba(10, 10, 10, 0.9)" ; class="nav-wrapper">
-            <p style="font-family: verdana">Violin Lessons</p>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <a style="text-decoration: none; color:white; " type="button" href="LoginPage.php">Login</a>
-                <a Style="text-decoration: none; color:white; " type="button" href="ProjectHomePage.php">Home</a>
-                <a Style="text-decoration: none; color:white; " type="button" style="color:white;" href="Calendar.php">Calendar</a></li>
-                <a Style="text-decoration: none; color:white; " type="button" style="color:white;" href="Contact.php">Contact</a></li>
-            </ul>
-            <div class="search">
-                <input type="text" placeholder="Search..">
-            </div>
-        </div>
-    </nav>
-    </div>
-
+			</body>
+          </div>
+        </section>
+        <?php include 'footer.html'; ?>
+        <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+      </div>
+    </main>
+    <?php include 'mainScripts.html'; ?>
+  </body>
 </html>

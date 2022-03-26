@@ -17,7 +17,7 @@ session_start();
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Calendar</a>
                   <ul class="dropdown-menu">
-                    <li><a href="calendar.html">Calendar</a></li>
+                    <li><a href="calendar.php">Calendar</a></li>
                   </ul>
                 </li>
                 <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Logout</a>
