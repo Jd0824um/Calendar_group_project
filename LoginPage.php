@@ -88,37 +88,57 @@ if (isset($_SESSION["authenticated"])) {
       <section id="login" class="module portfolio-page-header" data-background="im_violin0.jpg">
         <div class="container">
           <div class="row">
-            <form method="POST" action="index.php">
-              <h1 style="text-align: center; color:white; font-family:Roboto Condensed, sans-serif;">Login</h1>
-              <form>
-                <div class="container">
-                  <label style="color: white; font-family:Roboto Condensed, sans-serif;">Username:</label>
-                  <input name="username" type="text" placeholder="Enter Username" name="username" required>
-                  <br>
-                  <label style="color: white; font-family:Roboto Condensed, sans-serif;">Password:</label>
-                  <input type="password" placeholder="Enter Password" name="password" required>
-                  <button style="font-family:Roboto Condensed, sans-serif;" onsubmit="authenticate()" type="submit">Login</button>
-                  <div class="remember">
-                    <input style="font-family:Roboto Condensed, sans-serif;" type="checkbox" checked="checked;" />Remember me?
-                  </div>
+            <h1 style="text-align: center; color:white; font-family:Roboto Condensed, sans-serif;">Login</h1>
+            <form method="POST" action="LoginPage.php">
+              <div class="container">
+                <label style="color: white; font-family:Roboto Condensed, sans-serif;">Username:</label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+                <br>
+                <label style="color: white; font-family:Roboto Condensed, sans-serif;">Password:</label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+                <button style="font-family:Roboto Condensed, sans-serif;" `>Login</button>
+                <div class="remember">
+                  <input style="font-family:Roboto Condensed, sans-serif;" type="checkbox" checked="checked;" />Remember me?
                 </div>
-              </form>
+              </div>
+            </form>
+            <?php
+            function authenticate()
+            {
+              $db = new mysqli('127.0.0.1', 'root', null, 'lessons');
+              if (mysqli_connect_errno()) {
+                echo '<p style="color: white; font-family:Roboto Condensed, sans-serif;">Error: Could not connect to database.<br/>Please try again later.</p>';
+              } else {
+                $query = "SELECT * FROM userInfo WHERE username = ?;";
+                $stmt = $db->prepare($query);
+                $stmt->bind_param("s", $_POST['username']);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                var_dump($row);
+                if ($row && password_verify($_POST['password'], $row['password'])) {
+                  session_start();
+                  $_SESSION["authenticated"] = "true";
+                  echo "<script> location.href='index.php'; </script>";
+                } else {
+                  echo '<p style="color: white; font-family:Roboto Condensed, sans-serif;">Error: username/password combination not found.</p>';
+                }
+                $stmt->close();
+                $db->close();
+              }
+            }
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+              authenticate();
+            }
+            ?>
           </div>
         </div>
       </section>
       <?php include 'footer.html'; ?>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-      </div>
+    </div>
   </main>
 </body>
 
 </html>
 <?php include 'mainScripts.html'; ?>
-<script>
-  function authenticate() {
-    <?php
-    session_start();
-    $_SESSION["authenticated"] = "true";
-    ?>
-  }
-</script>
