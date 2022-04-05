@@ -1,67 +1,57 @@
+DROP DATABASE IF EXISTS lessons;
 CREATE DATABASE lessons;
 
 USE lessons;
 
-CREATE TABLE userInfo {
+CREATE TABLE class (
+    classId     INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
+    className   CHAR(50) NOT NULL,
+    roomNumber  CHAR(50)
+);
+
+CREATE TABLE userInfo (
     userID          INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
-    userFullName    CHAR(50) NOT NULL,
-    userAddress     CHAR(100) NOT NULL,
-    classId         INT UNSIGNED auto_increment,
+    username        CHAR(50) NOT NULL UNIQUE,
+    email           CHAR(50) NOT NULL,
+    classId         INT UNSIGNED,
     userCreatedAt   TIMESTAMP NOT NULL,
     password        CHAR(200) NOT NULL,
 
-
     FOREIGN KEY (classId) REFERENCES class(classId)
-};
+);
 
-INSERT INTO usersInfo VALUES {
-
-};
-
-CREATE TABLE teacher {
-    teacherID          INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
+CREATE TABLE teacher (
+    teacherID           INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
     teacherFullName     CHAR(50) NOT NULL,
-    teacherAddress      CHAR(50) NOT NUll,
-    roomNumber          INT UNSIGNED NOT NULL auto_increment,
-    teacherCreatedAt    TIMESTAMP NOT NULL,
+    roomNumber          INT UNSIGNED NOT NULL,
+    teacherCreatedAt    TIMESTAMP NOT NULL
+);
 
-    FOREIGN KEY (roomNumber) REFERENCES class(roomNumber)
-
-};
-
-CREATE TABLE class {
-    classId     INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
-    className   CHAR(50) NOT NULL,
-    roomNumber  CHAR(50),
-};
-
-CREATE TABLE student {
+CREATE TABLE student (
     studentID           INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
     studentFullName     CHAR(50) NOT NULL,
-    studentAddress       CHAR(100) NOT NULL,
-    classId             INT UNSIGNED auto_increment,
+    classId             INT UNSIGNED,
 
     FOREIGN KEY (classId) REFERENCES class(classId)
-};
+);
 
-CREATE TABLE appointment {
+CREATE TABLE appointment (
     appointmentID       INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
-    teachersID          INT UNSIGNED NOT NULL auto_increment,
-    studentID           INT UNSIGNED NOT NULL auto_increment,
-    appointmentNotes     CHAR(200),
-    appointmentSubject   CHAR (150),
+    teachersID          INT UNSIGNED NOT NULL,
+    studentID           INT UNSIGNED NOT NULL,
+    appointmentNotes    CHAR(200),
+    appointmentSubject  CHAR (150),
     appCreatedAt        TIMESTAMP,
     appointmentTime     DATETIME,
 
     FOREIGN KEY (studentID) REFERENCES student (studentID)
-};
+);
 
-CREATE TABLE notification{
+CREATE TABLE notification(
     notificationID      INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
     notificationMessage CHAR(100),
-    appointmentID       INT UNSIGNED NOT NULL auto_increment,
+    appointmentID       INT UNSIGNED NOT NULL,
     notificationRead    BOOLEAN,
 
     FOREIGN KEY (appointmentID) REFERENCES appointment(appointmentID)
-};
-
+);
