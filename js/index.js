@@ -179,7 +179,7 @@ function get_formatted_time(ttime)
 	var ampm = 'A';
 	var temp_hours = ttime.toString()[0] + ttime.toString()[1];
 	var temp_minutes = ttime.toString()[3] + ttime.toString()[4];
-	alert(ttime + ' ' + temp_hours);
+	//alert(ttime + ' ' + temp_hours);
 	if (temp_hours >= 12)
 	{
 		ampm = 'P';
@@ -455,6 +455,7 @@ function get_dates(date_from, date_to)
 	return db_dates;
 }
 
+
 	/*
 	var dateArray = getDates(new Date(), (new Date()).addDays(2));
 	for (i = 0; i < dateArray.length; i ++ )
@@ -563,4 +564,6 @@ function scheduler()
 	html += '<button type="button" onclick="add_event()"  style="background-color:black;color:green;width:3vw;height:3vw;font-size:2vw">+</button><br>';
 
 	document.getElementById("divScheduler").innerHTML = html;
+	document.getElementById('date_from').valueAsDate = new Date();
+	document.getElementById('date_to').valueAsDate = new Date().addDays(7);
 }
