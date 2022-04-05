@@ -46,12 +46,3 @@ CREATE TABLE appointment (
 
     FOREIGN KEY (studentID) REFERENCES student (studentID)
 );
-
-CREATE TABLE notification(
-    notificationID      INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
-    notificationMessage CHAR(100),
-    appointmentID       INT UNSIGNED NOT NULL,
-    notificationRead    BOOLEAN,
-
-    FOREIGN KEY (appointmentID) REFERENCES appointment(appointmentID)
-);
