@@ -142,11 +142,11 @@ Cal.prototype.showMonth = function(y, m)
 				html += 'data-value_time_to="' + db_students[x].db_events[b].time_to + '"';
 				html += 'data-value_notes="' + db_students[x].db_events[b].notes + '"';
 				html += '>';
-				html += db_students[x].db_events[b].html;
-				//var ttime_from = get_formatted_time(db_students[x].db_events[b].time_from);
-				//var ttime_to = get_formatted_time(db_students[x].db_events[b].time_to);
-				//html += ttime_from + '-' + ttime_to + ' ';
-				//html += db_students[x].nam;
+				//html += db_students[x].db_events[b].html;
+				var ttime_from = get_formatted_time(db_students[x].db_events[b].time_from);
+				var ttime_to = get_formatted_time(db_students[x].db_events[b].time_to);
+				html += ttime_from + '-' + ttime_to + ' ';
+				html += db_students[x].nam;
 				html += '</button>';
 			}
 		}
@@ -190,7 +190,13 @@ function select_event(btn_evnt)
 	if (selected_btn_event != null)
 	{
 		selected_btn_event.style = 'width:100%;background-color:#efefef;';
-		selected_btn_event.innerHTML = selected_event.html; //Orig html//
+		//selected_btn_event.innerHTML = selected_event.html; //Orig html//
+		var html = "";
+		var ttime_from = get_formatted_time(selected_event.time_from);
+		var ttime_to = get_formatted_time(selected_event.time_to);
+		html += ttime_from + '-' + ttime_to + ' ';
+		html += selected_event.nam;
+		selected_btn_event.innerHTML = html;
 	}
 	selected_btn_event = btn_evnt;
 	btn_evnt.style = 'width:100%;background-color:#40ff00;';
@@ -210,13 +216,16 @@ function select_event(btn_evnt)
 				&& db_students[aa].db_events[bb].notes == btn_evnt.getAttribute("data-value_notes"))
 				{
 					selected_event = db_students[aa].db_events[bb];
-					btn_evnt.innerHTML = db_students[aa].db_events[bb].html_with_notes;
-					//Presave the evnt.html & evnt.html_with_notes so the event can just switch between them with their html//
+					//btn_evnt.innerHTML = db_students[aa].db_events[bb].html_with_notes;
 					//lala
 
-					//var html = btn_evnt.innerHTML;
-					//html += "Yo";
-					//btn_evnt.innerHTML = html;
+					var html = "";
+					var ttime_from = get_formatted_time(selected_event.time_from);
+					var ttime_to = get_formatted_time(selected_event.time_to);
+					html += ttime_from + '-' + ttime_to + ' ';
+					html += selected_event.nam;
+					html += '<p>' + selected_event.notes + '</p>';
+					btn_evnt.innerHTML = html;
 				}
 			}
 		}
@@ -307,8 +316,8 @@ class Evnt
 		this.date_month = 3;
 		this.date_day = 28;
 		this.notes = "";
-		this.html = "";
-		this.html_with_notes = "";
+		//this.html = "";
+		//this.html_with_notes = "";
 	}
 }
 
@@ -342,14 +351,14 @@ function add_event()
 			tevent.notes = event_notes;
 
 			//Preset the html & html _with_notes for the button (when highlighted)//
-			var html = "";
-			var ttime_from = get_formatted_time(time_from);
-			var ttime_to = get_formatted_time(time_to);
-			html += ttime_from + '-' + ttime_to + ' ';
-			html += tevent.nam;
-			tevent.html = html;
-			html += '<p>' + tevent.notes + '</p>';
-			tevent.html_with_notes = html;			
+			// var html = "";
+			// var ttime_from = get_formatted_time(time_from);
+			// var ttime_to = get_formatted_time(time_to);
+			// html += ttime_from + '-' + ttime_to + ' ';
+			// html += tevent.nam;
+			// tevent.html = html;
+			// html += '<p>' + tevent.notes + '</p>';
+			// tevent.html_with_notes = html;			
 			
 			selected_student.db_events[selected_student.num_events] = tevent;
 			selected_student.num_events++;
@@ -374,14 +383,14 @@ function add_event()
 					tevent.notes = event_notes;
 					
 					//Preset the html & html _with_notes for the button (when highlighted)//
-					var html = "";
-					var ttime_from = get_formatted_time(time_from);
-					var ttime_to = get_formatted_time(time_to);
-					html += ttime_from + '-' + ttime_to + ' ';
-					html += tevent.nam;
-					tevent.html = html;
-					html += '<p>' + tevent.notes + '</p>';
-					tevent.html_with_notes = html;			
+					// var html = "";
+					// var ttime_from = get_formatted_time(time_from);
+					// var ttime_to = get_formatted_time(time_to);
+					// html += ttime_from + '-' + ttime_to + ' ';
+					// html += tevent.nam;
+					// tevent.html = html;
+					// html += '<p>' + tevent.notes + '</p>';
+					// tevent.html_with_notes = html;			
 
 					selected_student.db_events[selected_student.num_events] = tevent;
 					selected_student.num_events++;
@@ -410,14 +419,14 @@ function add_event()
 						tevent.notes = event_notes;
 						
 						//Preset the html & html _with_notes for the button (when highlighted)//
-						var html = "";
-						var ttime_from = get_formatted_time(time_from);
-						var ttime_to = get_formatted_time(time_to);
-						html += ttime_from + '-' + ttime_to + ' ';
-						html += tevent.nam;
-						tevent.html = html;
-						html += '<p>' + tevent.notes + '</p>';
-						tevent.html_with_notes = html;
+						// var html = "";
+						// var ttime_from = get_formatted_time(time_from);
+						// var ttime_to = get_formatted_time(time_to);
+						// html += ttime_from + '-' + ttime_to + ' ';
+						// html += tevent.nam;
+						// tevent.html = html;
+						// html += '<p>' + tevent.notes + '</p>';
+						// tevent.html_with_notes = html;
 						
 						selected_student.db_events[selected_student.num_events] = tevent;
 						selected_student.num_events++;
@@ -493,14 +502,14 @@ function add_event()
 						tevent.notes = event_notes;
 						
 						//Preset the html & html _with_notes for the button (when highlighted)//
-						var html = "";
-						var ttime_from = get_formatted_time(time_from);
-						var ttime_to = get_formatted_time(time_to);
-						html += ttime_from + '-' + ttime_to + ' ';
-						html += tevent.nam;
-						tevent.html = html;
-						html += '<p>' + tevent.notes + '</p>';
-						tevent.html_with_notes = html;
+						// var html = "";
+						// var ttime_from = get_formatted_time(time_from);
+						// var ttime_to = get_formatted_time(time_to);
+						// html += ttime_from + '-' + ttime_to + ' ';
+						// html += tevent.nam;
+						// tevent.html = html;
+						// html += '<p>' + tevent.notes + '</p>';
+						// tevent.html_with_notes = html;
 						
 						selected_student.db_events[selected_student.num_events] = tevent;
 						selected_student.num_events++;
@@ -525,14 +534,14 @@ function add_event()
 				tevent.notes = event_notes;
 				
 				//Preset the html & html _with_notes for the button (when highlighted)//
-				var html = "";
-				var ttime_from = get_formatted_time(time_from);
-				var ttime_to = get_formatted_time(time_to);
-				html += ttime_from + '-' + ttime_to + ' ';
-				html += tevent.nam;
-				tevent.html = html;
-				html += '<p>' + tevent.notes + '</p>';
-				tevent.html_with_notes = html;
+				// var html = "";
+				// var ttime_from = get_formatted_time(time_from);
+				// var ttime_to = get_formatted_time(time_to);
+				// html += ttime_from + '-' + ttime_to + ' ';
+				// html += tevent.nam;
+				// tevent.html = html;
+				// html += '<p>' + tevent.notes + '</p>';
+				// tevent.html_with_notes = html;
 				
 				selected_student.db_events[selected_student.num_events] = tevent;
 				selected_student.num_events++;
