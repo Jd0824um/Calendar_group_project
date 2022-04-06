@@ -117,7 +117,7 @@ Cal.prototype.showMonth = function(y, m)
 			  html += '<td class="not-current">' + k + '</td>';
 			  k++;
 		  }
-	}
+		}
 
     // Write the current day in the loop
     var chk = new Date();
@@ -131,12 +131,22 @@ Cal.prototype.showMonth = function(y, m)
 		{
 			if (db_students[x].db_events[b].date_year == y && db_students[x].db_events[b].date_month == m && db_students[x].db_events[b].date_day == i)
 			{
+				var tid = "month= " + m;
 				html += '<p></p>';
-				html += '<button type="button">';
-				var ttime_from = get_formatted_time(db_students[x].db_events[b].time_from);
-				var ttime_to = get_formatted_time(db_students[x].db_events[b].time_to);
-				html += ttime_from + '-' + ttime_to + ' ';
-				html += db_students[x].nam;
+				html += '<button type="button" onclick="select_event(this)"' 
+				html += 'data-value_nam="' + db_students[x].nam + '"';
+				html += 'data-value_year="' + y + '"';
+				html += 'data-value_month="' + m + '"';
+				html += 'data-value_day="' + i + '"';
+				html += 'data-value_time_from="' + db_students[x].db_events[b].time_from + '"';
+				html += 'data-value_time_to="' + db_students[x].db_events[b].time_to + '"';
+				html += 'data-value_notes="' + db_students[x].db_events[b].notes + '"';
+				html += '>';
+				html += db_students[x].db_events[b].html;
+				//var ttime_from = get_formatted_time(db_students[x].db_events[b].time_from);
+				//var ttime_to = get_formatted_time(db_students[x].db_events[b].time_to);
+				//html += ttime_from + '-' + ttime_to + ' ';
+				//html += db_students[x].nam;
 				html += '</button>';
 			}
 		}
@@ -172,6 +182,46 @@ Cal.prototype.showMonth = function(y, m)
 	document.getElementById(this.divId).innerHTML = html;
 	//alert(num_students);
 };
+
+
+
+function select_event(btn_evnt)
+{
+	if (selected_btn_event != null)
+	{
+		selected_btn_event.style = 'width:100%;background-color:#efefef;';
+		selected_btn_event.innerHTML = selected_event.html; //Orig html//
+	}
+	selected_btn_event = btn_evnt;
+	btn_evnt.style = 'width:100%;background-color:#40ff00;';
+	
+	for (var aa = 0; aa < num_students; aa++)
+	{
+		if (db_students[aa].nam == btn_evnt.getAttribute("data-value_nam"))
+		{
+			//alert("Found it: aa - " + aa);
+			for (var bb = 0; bb < db_students[aa].num_events; bb++)
+			{
+				if (db_students[aa].db_events[bb].date_year == btn_evnt.getAttribute("data-value_year")
+				&& db_students[aa].db_events[bb].date_month == btn_evnt.getAttribute("data-value_month")
+				&& db_students[aa].db_events[bb].date_day == btn_evnt.getAttribute("data-value_day")
+				&& db_students[aa].db_events[bb].time_from == btn_evnt.getAttribute("data-value_time_from")
+				&& db_students[aa].db_events[bb].time_to == btn_evnt.getAttribute("data-value_time_to")
+				&& db_students[aa].db_events[bb].notes == btn_evnt.getAttribute("data-value_notes"))
+				{
+					selected_event = db_students[aa].db_events[bb];
+					btn_evnt.innerHTML = db_students[aa].db_events[bb].html_with_notes;
+					//Presave the evnt.html & evnt.html_with_notes so the event can just switch between them with their html//
+					//lala
+
+					//var html = btn_evnt.innerHTML;
+					//html += "Yo";
+					//btn_evnt.innerHTML = html;
+				}
+			}
+		}
+	}
+}
 
 
 function get_formatted_time(ttime)
@@ -229,6 +279,8 @@ var c = new Cal("divCal");
 var db_students = [];
 var num_students = 0;
 var selected_student;
+var selected_event;
+var selected_btn_event;
 
 
 class Student
@@ -255,6 +307,8 @@ class Evnt
 		this.date_month = 3;
 		this.date_day = 28;
 		this.notes = "";
+		this.html = "";
+		this.html_with_notes = "";
 	}
 }
 
@@ -286,6 +340,17 @@ function add_event()
 			tevent.time_from = time_from;
 			tevent.time_to = time_to;
 			tevent.notes = event_notes;
+
+			//Preset the html & html _with_notes for the button (when highlighted)//
+			var html = "";
+			var ttime_from = get_formatted_time(time_from);
+			var ttime_to = get_formatted_time(time_to);
+			html += ttime_from + '-' + ttime_to + ' ';
+			html += tevent.nam;
+			tevent.html = html;
+			html += '<p>' + tevent.notes + '</p>';
+			tevent.html_with_notes = html;			
+			
 			selected_student.db_events[selected_student.num_events] = tevent;
 			selected_student.num_events++;
 		}
@@ -307,6 +372,17 @@ function add_event()
 					tevent.time_from = time_from;
 					tevent.time_to = time_to;
 					tevent.notes = event_notes;
+					
+					//Preset the html & html _with_notes for the button (when highlighted)//
+					var html = "";
+					var ttime_from = get_formatted_time(time_from);
+					var ttime_to = get_formatted_time(time_to);
+					html += ttime_from + '-' + ttime_to + ' ';
+					html += tevent.nam;
+					tevent.html = html;
+					html += '<p>' + tevent.notes + '</p>';
+					tevent.html_with_notes = html;			
+
 					selected_student.db_events[selected_student.num_events] = tevent;
 					selected_student.num_events++;
 				}
@@ -332,6 +408,17 @@ function add_event()
 						tevent.time_from = time_from;
 						tevent.time_to = time_to;
 						tevent.notes = event_notes;
+						
+						//Preset the html & html _with_notes for the button (when highlighted)//
+						var html = "";
+						var ttime_from = get_formatted_time(time_from);
+						var ttime_to = get_formatted_time(time_to);
+						html += ttime_from + '-' + ttime_to + ' ';
+						html += tevent.nam;
+						tevent.html = html;
+						html += '<p>' + tevent.notes + '</p>';
+						tevent.html_with_notes = html;
+						
 						selected_student.db_events[selected_student.num_events] = tevent;
 						selected_student.num_events++;
 					}
@@ -404,6 +491,17 @@ function add_event()
 						tevent.time_from = time_from;
 						tevent.time_to = time_to;
 						tevent.notes = event_notes;
+						
+						//Preset the html & html _with_notes for the button (when highlighted)//
+						var html = "";
+						var ttime_from = get_formatted_time(time_from);
+						var ttime_to = get_formatted_time(time_to);
+						html += ttime_from + '-' + ttime_to + ' ';
+						html += tevent.nam;
+						tevent.html = html;
+						html += '<p>' + tevent.notes + '</p>';
+						tevent.html_with_notes = html;
+						
 						selected_student.db_events[selected_student.num_events] = tevent;
 						selected_student.num_events++;
 					}
@@ -425,6 +523,17 @@ function add_event()
 				tevent.time_from = time_from;
 				tevent.time_to = time_to;
 				tevent.notes = event_notes;
+				
+				//Preset the html & html _with_notes for the button (when highlighted)//
+				var html = "";
+				var ttime_from = get_formatted_time(time_from);
+				var ttime_to = get_formatted_time(time_to);
+				html += ttime_from + '-' + ttime_to + ' ';
+				html += tevent.nam;
+				tevent.html = html;
+				html += '<p>' + tevent.notes + '</p>';
+				tevent.html_with_notes = html;
+				
 				selected_student.db_events[selected_student.num_events] = tevent;
 				selected_student.num_events++;
 			}
@@ -433,6 +542,35 @@ function add_event()
 		c.showcurr();
 	}
 }
+
+
+function remove_event()
+{
+	if (selected_event != null)
+	{
+		for (var aa = 0; aa < num_students; aa++)
+		{
+			if (db_students[aa].nam == selected_event.nam)
+			{
+				for (var bb = 0; bb < db_students[aa].num_events; bb++)
+				{
+					if (db_students[aa].db_events[bb] == selected_event)
+					{
+						//alert("index: " + tz);
+						db_students[aa].db_events[bb] = db_students[aa].db_events[db_students[aa].num_events - 1];
+						//db_students[aa].db_events[db_students[aa].num_events - 1] = null;
+						db_students[aa].num_events--;
+						//db_students[aa].db_events.sort((a, b) => (a.time_from > b.time_from) ? 1 : -1)
+						break;
+					}
+				}
+			}
+		}
+		//selected_event.(student).db_events.sort((a, b) => (a.time_from > b.time_from) ? 1 : -1)
+		c.showcurr();
+	}
+}
+
 
 
 Date.prototype.addDays = function(days)
@@ -548,6 +686,20 @@ function display_students()
 }
 
 
+function do_click()
+{
+    var dialog = document.getElementById('myFirstDialog');
+    document.getElementById('show').onclick = function()
+	{
+        dialog.show();
+    };
+    document.getElementById('hide').onclick = function()
+	{
+        dialog.close();
+    };
+}
+
+
 function scheduler()
 {
 	var html = "<table>";
@@ -561,8 +713,11 @@ function scheduler()
 	html += '<label for="date_to"></label><input type="date" value="2022-03-28" id="date_to" name="date_to"><br>'
 	html +=	'<textarea name="event_notes" id="event_notes" cols="40" placeholder="Additional Notes" rows="5"></textarea><br>'
 
-	html += '<button type="button" onclick="add_event()"  style="background-color:black;color:green;width:3vw;height:3vw;font-size:2vw">+</button><br>';
-
+	html += '<button type="button" onclick="add_event()"  style="background-color:black;color:green;width:3vw;height:3vw;font-size:2vw">+</button>';
+	html += '<button type="button" onclick="remove_event()" style="background-color:black;color:red;width:3vw;height:3vw;font-size:2vw">-</button><br>';
+	
+	//html += '<div><dialog id="myFirstDialog" style="width:50%;background-color:#F4FFEF;border:1px dotted black;">   <p><q>Words and stuff. </q></p><button id="hide">Close</button></dialog><button id="show" onclick="do_click()">Show Dialog</button></div>'
+	
 	document.getElementById("divScheduler").innerHTML = html;
 	document.getElementById('date_from').valueAsDate = new Date();
 	document.getElementById('date_to').valueAsDate = new Date().addDays(7);
