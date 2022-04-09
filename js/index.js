@@ -261,19 +261,6 @@ function get_formatted_time(ttime)
 window.onload = () =>
 {
 	get_students();
-	scheduler();
-	// Start calendar
-	c.showcurr();
-
-	// Bind next and previous button clicks
-	getId('btnNext').onclick = function()
-	{
-		c.nextMonth();
-	};
-	getId('btnPrev').onclick = function()
-	{
-		c.previousMonth();
-	};
 }
 
 
@@ -360,8 +347,7 @@ function add_event()
 			// html += '<p>' + tevent.notes + '</p>';
 			// tevent.html_with_notes = html;			
 			
-			selected_student.db_events[selected_student.num_events] = tevent;
-			selected_student.num_events++;
+			add_appointment(tevent);
 		}
 		else
 		if (how_often == "weekly")
@@ -392,8 +378,7 @@ function add_event()
 					// html += '<p>' + tevent.notes + '</p>';
 					// tevent.html_with_notes = html;			
 
-					selected_student.db_events[selected_student.num_events] = tevent;
-					selected_student.num_events++;
+					add_appointment(tevent);
 				}
 			}
 		}
@@ -428,8 +413,7 @@ function add_event()
 						// html += '<p>' + tevent.notes + '</p>';
 						// tevent.html_with_notes = html;
 						
-						selected_student.db_events[selected_student.num_events] = tevent;
-						selected_student.num_events++;
+						add_appointment(tevent);
 					}
 					else
 					//if (eo == true)
@@ -511,8 +495,7 @@ function add_event()
 						// html += '<p>' + tevent.notes + '</p>';
 						// tevent.html_with_notes = html;
 						
-						selected_student.db_events[selected_student.num_events] = tevent;
-						selected_student.num_events++;
+						add_appointment(tevent);
 					}
 				}
 			}
@@ -543,13 +526,26 @@ function add_event()
 				// html += '<p>' + tevent.notes + '</p>';
 				// tevent.html_with_notes = html;
 				
-				selected_student.db_events[selected_student.num_events] = tevent;
-				selected_student.num_events++;
+				add_appointment(tevent);
 			}
 		}
-		selected_student.db_events.sort((a, b) => (a.time_from > b.time_from) ? 1 : -1)
+	}
+}
+
+function add_appointment(tevent) {
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST','CalendarMethods.php?function=addAppointment');
+	xhr.onload = function() {
+		console.log('Added appointment');
+
+		selected_student.db_events[selected_student.num_events] = tevent;
+		selected_student.num_events++;
+		selected_student.db_events.sort((a, b) => (a.time_from > b.time_from) ? 1 : -1);
 		c.showcurr();
 	}
+
+	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.send("studentFullName=" + tevent.nam + "&dateYear=" + tevent.date_year + "&dateMonth=" + tevent.date_month + "&dateDay=" + tevent.date_day + "&timeFrom=" + tevent.time_from + "&timeTo=" + tevent.time_to + "&appointmentNotes=" + tevent.notes);
 }
 
 
@@ -557,26 +553,18 @@ function remove_event()
 {
 	if (selected_event != null)
 	{
-		for (var aa = 0; aa < num_students; aa++)
-		{
-			if (db_students[aa].nam == selected_event.nam)
-			{
-				for (var bb = 0; bb < db_students[aa].num_events; bb++)
-				{
-					if (db_students[aa].db_events[bb] == selected_event)
-					{
-						//alert("index: " + tz);
-						db_students[aa].db_events[bb] = db_students[aa].db_events[db_students[aa].num_events - 1];
-						//db_students[aa].db_events[db_students[aa].num_events - 1] = null;
-						db_students[aa].num_events--;
-						//db_students[aa].db_events.sort((a, b) => (a.time_from > b.time_from) ? 1 : -1)
-						break;
-					}
-				}
-			}
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST','CalendarMethods.php?function=removeAppointment');
+		xhr.onload = function() {
+			console.log('Removed appointment');
+
+			db_students = [];
+			num_students = 0;
+			get_students();	
 		}
-		//selected_event.(student).db_events.sort((a, b) => (a.time_from > b.time_from) ? 1 : -1)
-		c.showcurr();
+
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhr.send("studentFullName=" + selected_event.nam + "&dateYear=" + selected_event.date_year + "&dateMonth=" + selected_event.date_month + "&dateDay=" + selected_event.date_day + "&timeFrom=" + selected_event.time_from + "&timeTo=" + selected_event.time_to + "&appointmentNotes=" + selected_event.notes);
 	}
 }
 
@@ -615,11 +603,49 @@ function get_students() {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET','CalendarMethods.php?function=getStudents');
 	xhr.onload = function() {
+		var students = {};
 		JSON.parse(this.response).forEach(student => {
-			db_students[num_students] = new Student(student.studentFullName);
-			num_students++;
+			if (students[student.studentFullName] == null) {
+				students[student.studentFullName] = {};
+				students[student.studentFullName].db_events = [];
+				students[student.studentFullName].num_events = 0;
+			}
+			if (student.studentID != null) {
+				var tevent = new Evnt();
+				tevent.nam = student.studentFullName;
+				tevent.date_year = student.dateYear;
+				tevent.date_month = student.dateMonth;
+				tevent.date_day = student.dateDay;
+				tevent.time_from = student.timeFrom;
+				tevent.time_to = student.timeTo;
+				tevent.notes = student.appointmentNotes;
+
+				students[student.studentFullName].db_events[students[student.studentFullName].num_events] = tevent;
+				students[student.studentFullName].num_events++;
+				students[student.studentFullName].db_events.sort((a, b) => (a.time_from > b.time_from) ? 1 : -1);
+			}
 		});
+		for (var key in students) {
+			var student = new Student(key);
+			student.db_events = students[key].db_events;
+			student.num_events = students[key].num_events;
+			db_students[num_students] = student;
+			num_students++;
+		}
 		display_students();
+		scheduler();
+		// Start calendar
+		c.showcurr();
+	
+		// Bind next and previous button clicks
+		getId('btnNext').onclick = function()
+		{
+			c.nextMonth();
+		};
+		getId('btnPrev').onclick = function()
+		{
+			c.previousMonth();
+		};
 	}
 
 	xhr.setRequestHeader('Content-type', 'application/json');
@@ -661,7 +687,6 @@ function remove_student()
 			db_students = [];
 			num_students = 0;
 			get_students();	
-			c.showcurr();
 		}
 
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

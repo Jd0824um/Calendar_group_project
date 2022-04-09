@@ -37,12 +37,14 @@ CREATE TABLE student (
 
 CREATE TABLE appointment (
     appointmentID       INT UNSIGNED NOT NULL auto_increment PRIMARY KEY,
-    teachersID          INT UNSIGNED NOT NULL,
     studentID           INT UNSIGNED NOT NULL,
     appointmentNotes    CHAR(200),
-    appointmentSubject  CHAR (150),
-    appCreatedAt        TIMESTAMP,
-    appointmentTime     DATETIME,
+    appCreatedAt        TIMESTAMP NOT NULL,
+    timeFrom            CHAR(10) NOT NULL,
+    timeTo              CHAR(10) NOT NULL,
+    dateYear            INT UNSIGNED NOT NULL,
+    dateMonth           INT UNSIGNED NOT NULL,
+    dateDay             INT UNSIGNED NOT NULL,
 
     FOREIGN KEY (studentID) REFERENCES student (studentID)
 );
