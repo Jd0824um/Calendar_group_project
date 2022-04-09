@@ -258,9 +258,9 @@ function get_formatted_time(ttime)
 
 
 // On Load of the window
-window.onload = function()
+window.onload = () =>
 {
-	display_students();
+	get_students();
 	scheduler();
 	// Start calendar
 	c.showcurr();
@@ -611,17 +611,40 @@ function get_dates(date_from, date_to)
 	}
 	*/
 
+function get_students() {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET','CalendarMethods.php?function=getStudents');
+	xhr.onload = function() {
+		JSON.parse(this.response).forEach(student => {
+			db_students[num_students] = new Student(student.studentFullName);
+			num_students++;
+		});
+		display_students();
+	}
+
+	xhr.setRequestHeader('Content-type', 'application/json');
+	xhr.send();
+}
 
 function add_student()
 {
 	var nam = document.getElementById("student_name").value;
 	if (nam.length > 0)
 	{
-		db_students[num_students] = new Student(nam);
-		selected_student = db_students[num_students];
-		num_students++;
-		display_students();	
-		c.showcurr();
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST','CalendarMethods.php?function=addStudent');
+		xhr.onload = function() {
+			console.log('Added student');
+
+			db_students[num_students] = new Student(nam);
+			selected_student = db_students[num_students];
+			num_students++;
+			display_students();	
+			c.showcurr();
+		}
+
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhr.send("studentFullName=" + nam);
 	}
 }
 
@@ -630,21 +653,20 @@ function remove_student()
 {
 	if (selected_student != null)
 	{
-		//var tz = 0;
-		for (var z = 0; z < num_students; z++)
-		{
-			if (db_students[z].nam == selected_student.nam)
-			{
-				db_students[z] = db_students[num_students - 1];
-				db_students[num_students - 1] = null;
-				num_students--;
-				break;
-				//tz = z;
-				//alert("index: " + tz);
-			}
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST','CalendarMethods.php?function=removeStudent');
+		xhr.onload = function() {
+			console.log('Removed student');
+
+			db_students = [];
+			num_students = 0;
+			get_students();	
+			c.showcurr();
 		}
+
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhr.send("studentFullName=" + selected_student.nam);
 	}
-	display_students();
 }
 
 
