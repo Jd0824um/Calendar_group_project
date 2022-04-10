@@ -36,10 +36,6 @@
                     <div class="col-sm-6 col-md-6 col-lg-6">
                         <div class="gallery-item">
                             <img src="teacher.jpg" alt="Teacher1" />
-                            <div>
-                                <button class="btn btn-d btn-circle" data-target="#uploadImgModal" data-toggle="modal">Change Photo</button>
-                            </div>
-                            <?php include 'uploadImage.php'; ?>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6">
