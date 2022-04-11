@@ -62,6 +62,7 @@
                                         $stmt->execute();
                                         session_start();
                                         $_SESSION["authenticated"] = "true";
+                                        $_SESSION["user"] = $db->insert_id;
                                         echo "<script> location.href='index.php'; </script>";
                                     } catch (mysqli_sql_exception $e) {
                                         if ($e->getCode() == 1062) {
