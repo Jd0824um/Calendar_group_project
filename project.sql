@@ -46,5 +46,5 @@ CREATE TABLE appointment (
     dateMonth           INT UNSIGNED NOT NULL,
     dateDay             INT UNSIGNED NOT NULL,
 
-    FOREIGN KEY (studentID) REFERENCES student (studentID)
+    FOREIGN KEY (studentID) REFERENCES student (studentID) ON DELETE CASCADE
 );
