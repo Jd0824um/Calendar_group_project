@@ -14,6 +14,12 @@
     <div class="main">
       <section class="module bg-dark-60 portfolio-page-header" style="padding-bottom: 567px;" data-background="indexImg.jpg">
         <div class="container">
+          <?php if (isset($_SESSION["firstTime"])) : ?>
+            <div class="alert alert-success" role="alert">
+              Welcome <?php echo($_SESSION["username"]) ?>!
+              <?php $_SESSION["firstTime"] = null?>
+            </div>
+          <?php endif ?>
           <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
               <h2 class="module-title font-alt">Music Lessons</h2>
@@ -27,5 +33,6 @@
     </div>
   </main>
 </body>
+
 </html>
 <?php include 'mainScripts.html'; ?>

@@ -119,7 +119,9 @@ if (isset($_SESSION["authenticated"])) {
                 if ($row && password_verify($_POST['password'], $row['password'])) {
                   session_start();
                   $_SESSION["authenticated"] = "true";
+                  $_SESSION["username"] = $row['username'];
                   $_SESSION["user"] = $row['userID'];
+                  $_SESSION["firstTime"] = "true";
                   echo "<script> location.href='index.php'; </script>";
                 } else {
                   echo '<p style="color: white; font-family:Roboto Condensed, sans-serif;">Error: username/password combination not found.</p>';
