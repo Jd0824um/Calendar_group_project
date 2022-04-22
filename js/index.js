@@ -116,7 +116,7 @@ Cal.prototype.showMonth = function(y, m) {
                 if (db_students[x].db_events[b].date_year == y && db_students[x].db_events[b].date_month == m && db_students[x].db_events[b].date_day == i) {
                     var tid = "month= " + m;
                     html += '<p></p>';
-                    html += '<button type="button" onclick="select_event(this)"'
+                    html += '<span style="font-size:10px" onMouseOver="this.style.cursor=\'pointer\'" onclick="select_event(this)"'
                     html += 'data-value_nam="' + db_students[x].nam + '"';
                     html += 'data-value_year="' + y + '"';
                     html += 'data-value_month="' + m + '"';
@@ -130,7 +130,7 @@ Cal.prototype.showMonth = function(y, m) {
                     var ttime_to = get_formatted_time(db_students[x].db_events[b].time_to);
                     html += ttime_from + '-' + ttime_to + ' ';
                     html += db_students[x].nam;
-                    html += '</button>';
+                    html += '</span>';
                 }
             }
         }
@@ -160,46 +160,42 @@ Cal.prototype.showMonth = function(y, m) {
 
     // Write HTML to the div
     document.getElementById(this.divId).innerHTML = html;
-    //alert(num_students);
 };
 
 
 
-function select_event(btn_evnt) {
-    if (selected_btn_event != null) {
-        selected_btn_event.style = 'width:100%;background-color:#efefef;';
-        //selected_btn_event.innerHTML = selected_event.html; //Orig html//
+function select_event(event) {
+    alert(selected_event);
+    if (selected_event != undefined) {
+        selected_event.style = 'width:100%;background-color:#efefef;';
         var html = "";
-        var ttime_from = get_formatted_time(selected_event.time_from);
-        var ttime_to = get_formatted_time(selected_event.time_to);
-        html += ttime_from + '-' + ttime_to + ' ';
+        var time_from = get_formatted_time(selected_event.time_from);
+        var time_to = get_formatted_time(selected_event.time_to);
+        html += time_from + '-' + time_to + ' ';
         html += selected_event.nam;
-        selected_btn_event.innerHTML = html;
+        selected_event.innerHTML = html;
     }
-    selected_btn_event = btn_evnt;
-    btn_evnt.style = 'width:100%;background-color:#40ff00;';
+    selected_event = event;
+    event.style = 'width:100%;background-color:#40ff00;';
 
     for (var aa = 0; aa < num_students; aa++) {
-        if (db_students[aa].nam == btn_evnt.getAttribute("data-value_nam")) {
-            //alert("Found it: aa - " + aa);
+        if (db_students[aa].nam == event.getAttribute("data-value_nam")) {
             for (var bb = 0; bb < db_students[aa].num_events; bb++) {
-                if (db_students[aa].db_events[bb].date_year == btn_evnt.getAttribute("data-value_year") &&
-                    db_students[aa].db_events[bb].date_month == btn_evnt.getAttribute("data-value_month") &&
-                    db_students[aa].db_events[bb].date_day == btn_evnt.getAttribute("data-value_day") &&
-                    db_students[aa].db_events[bb].time_from == btn_evnt.getAttribute("data-value_time_from") &&
-                    db_students[aa].db_events[bb].time_to == btn_evnt.getAttribute("data-value_time_to") &&
-                    db_students[aa].db_events[bb].notes == btn_evnt.getAttribute("data-value_notes")) {
+                if (db_students[aa].db_events[bb].date_year == event.getAttribute("data-value_year") &&
+                    db_students[aa].db_events[bb].date_month == event.getAttribute("data-value_month") &&
+                    db_students[aa].db_events[bb].date_day == event.getAttribute("data-value_day") &&
+                    db_students[aa].db_events[bb].time_from == event.getAttribute("data-value_time_from") &&
+                    db_students[aa].db_events[bb].time_to == event.getAttribute("data-value_time_to") &&
+                    db_students[aa].db_events[bb].notes == event.getAttribute("data-value_notes")) {
                     selected_event = db_students[aa].db_events[bb];
-                    //btn_evnt.innerHTML = db_students[aa].db_events[bb].html_with_notes;
-                    //lala
 
                     var html = "";
-                    var ttime_from = get_formatted_time(selected_event.time_from);
-                    var ttime_to = get_formatted_time(selected_event.time_to);
-                    html += ttime_from + '-' + ttime_to + ' ';
+                    var time_from = get_formatted_time(selected_event.time_from);
+                    var time_to = get_formatted_time(selected_event.time_to);
+                    html += time_from + '-' + time_to + ' ';
                     html += selected_event.nam;
                     html += '<p>' + selected_event.notes + '</p>';
-                    btn_evnt.innerHTML = html;
+                    event.innerHTML = html;
                 }
             }
         }
@@ -244,7 +240,7 @@ var db_students = [];
 var num_students = 0;
 var selected_student;
 var selected_event;
-var selected_btn_event;
+var selected_event;
 
 
 class Student {
@@ -258,17 +254,14 @@ class Student {
 
 
 class Evnt {
-    //constructor(tnam, tfrom, tto, tyear, tmonth, tday)
-    constructor() {
-        this.nam = "Event";
-        this.time_from = "";
-        this.time_to = "";
-        this.date_year = 2022;
-        this.date_month = 3;
-        this.date_day = 28;
-        this.notes = "";
-        //this.html = "";
-        //this.html_with_notes = "";
+    constructor(tnam, tfrom, tto, tyear, tmonth, tday, tnotes) {
+        this.nam = tnam;
+        this.time_from = tfrom;
+        this.time_to = tto;
+        this.date_year = tyear;
+        this.date_month = tmonth;
+        this.date_day = tday;
+        this.notes = tnotes;
     }
 }
 
@@ -294,154 +287,128 @@ function add_event() {
 
         if (!times_ok) {
             alert("Check to make sure end date/times are after start date/times");
-        } else
-        if (how_often == "once") {
-            var tevent = new Evnt();
-            tevent.nam = selected_student.nam;
-            tevent.date_year = new Date(date_from).getFullYear();
-            tevent.date_month = new Date(date_from).getMonth();
-            tevent.date_day = new Date(date_from).getDate();
-            tevent.time_from = time_from;
-            tevent.time_to = time_to;
-            tevent.notes = event_notes;
-            add_appointment(tevent);
-        } else
-        if (how_often == "weekly") {
-            //current_date.getDay() is 0-6 days of week
-            //getDate() is day of month (0-30 or whatever)
-            var db_dates = get_dates(new Date(date_from), new Date(date_to));
-            var num_added = 0;
-            for (var x = 0; x < db_dates.length; x++) {
-                if (db_dates[x].getDay() == day_of_week) {
-                    num_added++;
-                    var tevent = new Evnt();
-                    tevent.nam = selected_student.nam;
-                    tevent.date_year = db_dates[x].getFullYear();
-                    tevent.date_month = db_dates[x].getMonth();
-                    tevent.date_day = db_dates[x].getDate();
-                    tevent.time_from = time_from;
-                    tevent.time_to = time_to;
-                    tevent.notes = event_notes;
+        } else {
+            switch (how_often) {
+                case ("once"):
+                    var tevent = new Evnt(selected_student.nam, time_from, time_to, new Date(date_from).getFullYear(), new Date(date_from).getMonth(), new Date(date_from).getDate(), event_notes);
                     add_appointment(tevent);
-                }
-            }
-            if (num_added == 0) {
-                var e = document.getElementById("day_of_week");
-                alert("No " + e.options[e.selectedIndex].text + " fall within this range");
-            }
-        } else
-        if (how_often == "biweekly") {
-            var db_dates = get_dates(new Date(date_from), new Date(date_to));
-            var num_added = 0;
-            var eo = false;
-            for (var x = 0; x < db_dates.length; x++) {
-                if (db_dates[x].getDay() == day_of_week) {
-                    if (eo == false) {
-                        num_added++;
-                        eo = true;
-                        var tevent = new Evnt();
-                        tevent.nam = selected_student.nam;
-                        tevent.date_year = db_dates[x].getFullYear();
-                        tevent.date_month = db_dates[x].getMonth();
-                        tevent.date_day = db_dates[x].getDate();
-                        tevent.time_from = time_from;
-                        tevent.time_to = time_to;
-                        tevent.notes = event_notes;
-                        add_appointment(tevent);
-                    } else
-                    //if (eo == true)
+                    break;
+                case ("weekly"):
+                    //current_date.getDay() is 0-6 days of week
+                    //getDate() is day of month (0-30 or whatever)
+                    var db_dates = get_dates(new Date(date_from), new Date(date_to));
+                    var num_added = 0;
+                    for (var x = 0; x < db_dates.length; x++) {
+                        if (db_dates[x].getDay() == day_of_week) {
+                            num_added++;
+                            var tevent = new Evnt(selected_student.nam, time_from, time_to, db_dates[x].getFullYear(), db_dates[x].getMonth(), db_dates[x].getDate(), event_notes);
+                            add_appointment(tevent);
+                        }
+                    }
+                    break;
+                case ("biweekly"):
+                    var db_dates = get_dates(new Date(date_from), new Date(date_to));
+                    var num_added = 0;
+                    var eo = false;
+                    for (var x = 0; x < db_dates.length; x++) {
+                        if (db_dates[x].getDay() == day_of_week) {
+                            if (eo == false) {
+                                num_added++;
+                                eo = true;
+                                var tevent = new Evnt(selected_student.nam, time_from, time_to, db_dates[x].getFullYear(), db_dates[x].getMonth(), db_dates[x].getDate(), event_notes);
+                                add_appointment(tevent);
+                            } else
+                            //if (eo == true)
+                            {
+                                eo = false;
+                            }
+                        }
+                    }
+                    if (num_added == 0) {
+                        var e = document.getElementById("day_of_week");
+                        alert("No " + e.options[e.selectedIndex].text + " fall within this range");
+                    }
+                    break;
+                case ("monthly"):
+                    var db_dates = get_dates(new Date(date_from), new Date(date_to));
+                    var num_added = 0;
+                    var date_start = new Date(date_from);
+                    var ndow = date_start.getDay();
+                    var nweek = date_start.getDate();
+
+                    nweek = nweek / 7;
+                    if (nweek > 5)
+                        nweek = 5;
+                    else
+                    if (nweek > 4)
+                        nweek = 4;
+                    else
+                    if (nweek > 3)
+                        nweek = 3;
+                    else
+                    if (nweek > 2)
+                        nweek = 2;
+                    else
+                    if (nweek > 1)
+                        nweek = 1;
+                    else
+                        nweek = 0;
+
+                    for (var x = 0; x < db_dates.length; x++) {
+                        if (db_dates[x].getDay() == ndow) {
+                            var tweek = db_dates[x].getDate();
+                            tweek = tweek / 7;
+                            if (tweek > 5)
+                                tweek = 5;
+                            else
+                            if (tweek > 4)
+                                tweek = 4;
+                            else
+                            if (tweek > 3)
+                                tweek = 3;
+                            else
+                            if (tweek > 2)
+                                tweek = 2;
+                            else
+                            if (tweek > 1)
+                                tweek = 1;
+                            else
+                                tweek = 0;
+
+                            if (tweek == nweek) {
+                                num_added++;
+                                var tevent = new Evnt();
+                                tevent.nam = selected_student.nam;
+                                tevent.date_year = db_dates[x].getFullYear();
+                                tevent.date_month = db_dates[x].getMonth();
+                                tevent.date_day = db_dates[x].getDate();
+                                tevent.time_from = time_from;
+                                tevent.time_to = time_to;
+                                tevent.notes = event_notes;
+                                add_appointment(tevent);
+                            }
+                        }
+                    }
+                    if (num_added == 0) {
+                        var e = document.getElementById("day_of_week");
+                        alert("No " + e.options[e.selectedIndex].text + " fall within this range");
+                    }
+                    break;
+                case ("daily"):
                     {
-                        eo = false;
+                        //var db_dates = get_dates(new Date(), (new Date()).addDays(2));
+                        var db_dates = get_dates(new Date(date_from), new Date(date_to));
+                        for (var x = 0; x < db_dates.length; x++) {
+                            var tevent = new Evnt(selected_student.nam, time_from, time_to, db_dates[x].getFullYear(), db_dates[x].getMonth(), db_dates[x].getDate(), event_notes);
+                            add_appointment(tevent);
+                        }
                     }
-                }
-            }
-            if (num_added == 0) {
-                var e = document.getElementById("day_of_week");
-                alert("No " + e.options[e.selectedIndex].text + " fall within this range");
-            }
-        } else
-        if (how_often == "monthly") {
-            var db_dates = get_dates(new Date(date_from), new Date(date_to));
-            var num_added = 0;
-            var date_start = new Date(date_from);
-            var ndow = date_start.getDay();
-            var nweek = date_start.getDate();
-
-            nweek = nweek / 7;
-            if (nweek > 5)
-                nweek = 5;
-            else
-            if (nweek > 4)
-                nweek = 4;
-            else
-            if (nweek > 3)
-                nweek = 3;
-            else
-            if (nweek > 2)
-                nweek = 2;
-            else
-            if (nweek > 1)
-                nweek = 1;
-            else
-                nweek = 0;
-
-            for (var x = 0; x < db_dates.length; x++) {
-                if (db_dates[x].getDay() == ndow) {
-                    var tweek = db_dates[x].getDate();
-                    tweek = tweek / 7;
-                    if (tweek > 5)
-                        tweek = 5;
-                    else
-                    if (tweek > 4)
-                        tweek = 4;
-                    else
-                    if (tweek > 3)
-                        tweek = 3;
-                    else
-                    if (tweek > 2)
-                        tweek = 2;
-                    else
-                    if (tweek > 1)
-                        tweek = 1;
-                    else
-                        tweek = 0;
-
-                    if (tweek == nweek) {
-                        num_added++;
-                        var tevent = new Evnt();
-                        tevent.nam = selected_student.nam;
-                        tevent.date_year = db_dates[x].getFullYear();
-                        tevent.date_month = db_dates[x].getMonth();
-                        tevent.date_day = db_dates[x].getDate();
-                        tevent.time_from = time_from;
-                        tevent.time_to = time_to;
-                        tevent.notes = event_notes;
-                        add_appointment(tevent);
-                    }
-                }
-            }
-            if (num_added == 0) {
-                var e = document.getElementById("day_of_week");
-                alert("No " + e.options[e.selectedIndex].text + " fall within this range");
-            }
-        } else
-        if (how_often == "daily") {
-            //var db_dates = get_dates(new Date(), (new Date()).addDays(2));
-            var db_dates = get_dates(new Date(date_from), new Date(date_to));
-            for (var x = 0; x < db_dates.length; x++) {
-                var tevent = new Evnt();
-                tevent.nam = selected_student.nam;
-                tevent.date_year = db_dates[x].getFullYear();
-                tevent.date_month = db_dates[x].getMonth();
-                tevent.date_day = db_dates[x].getDate();
-                tevent.time_from = time_from;
-                tevent.time_to = time_to;
-                tevent.notes = event_notes;
-                add_appointment(tevent);
+                    event_notes.value = '';
+                    break;
+                default:
+                    alert("Select a student to create an event for them");
             }
         }
-    } else {
-        alert("Select a student to create an event for them");
     }
 }
 
