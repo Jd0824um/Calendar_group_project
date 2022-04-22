@@ -377,14 +377,7 @@ function add_event() {
 
                             if (tweek == nweek) {
                                 num_added++;
-                                var tevent = new Evnt();
-                                tevent.nam = selected_student.nam;
-                                tevent.date_year = db_dates[x].getFullYear();
-                                tevent.date_month = db_dates[x].getMonth();
-                                tevent.date_day = db_dates[x].getDate();
-                                tevent.time_from = time_from;
-                                tevent.time_to = time_to;
-                                tevent.notes = event_notes;
+                                var tevent = new Evnt(selected_student.nam, time_from, time_to, db_dates[x].getFullYear(), db_dates[x].getMonth(), db_dates[x].getDate(), event_notes);
                                 add_appointment(tevent);
                             }
                         }

@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  if (!isset($_SESSION["authenticated"])) {
+    echo "<script> location.href='LoginPage.php'; </script>";
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
@@ -7,7 +14,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400|Roboto+Condensed:400|Fjalla+One:400'>
   <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 
