@@ -16,11 +16,11 @@ session_start();
                     <li>
                         <a href="Calendar.php">Calendar</a>
                     </li>
+                    <li>
+                        <a href="Faculty.php">Faculty</a>
+                    </li>
                     <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Me</a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="profile.php">Profile</a>
-                            </li>
                             <li>
                                 <a href="UpdateUser.php">Update User</a>
                             </li>
