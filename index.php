@@ -12,7 +12,7 @@
     </div>
     <?php include 'navbar.php'; ?>
     <div class="main">
-      <section class="module bg-dark-60 portfolio-page-header" style="padding-bottom: 567px;" data-background="indexImg.jpg">
+      <section class="module bg-dark-60 portfolio-page-header" style="padding-bottom: 567px;" data-background="assets/images/indexImg.jpg">
         <div class="container">
           <?php if (isset($_SESSION["firstTime"])) : ?>
             <div class="alert alert-success" role="alert">

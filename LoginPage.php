@@ -85,7 +85,7 @@ if (isset($_SESSION["authenticated"])) {
     </div>
     <?php include 'navbar.php'; ?>
     <div class="main">
-      <section id="login" class="module portfolio-page-header" data-background="im_violin0.jpg">
+      <section id="login" class="module portfolio-page-header" data-background="assets/images/im_violin0.jpg">
         <div class="container">
           <div class="row">
             <h1 style="text-align: center; color:white; font-family:Roboto Condensed, sans-serif;">Login</h1>

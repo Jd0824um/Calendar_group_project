@@ -13,7 +13,7 @@
         </div>
         <?php include 'navbar.php'; ?>
         <div class="main">
-            <section class="module bg-dark-60 contact-page-header bg-dark">
+            <section class="module bg-dark-60 contact-page-header bg-dark" data-background="assets/images/piano.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
@@ -23,6 +23,11 @@
                     </div>
                 </div>
             </section>
+            <?php if ($_SERVER['REQUEST_METHOD'] == 'POST') : ?>
+                <div class="alert alert-success" role="alert">
+                    We have recieved your message! We will get back to you shortly.
+                </div>
+            <?php endif ?>
             <section class="module">
                 <div class="container">
                     <div class="row">
@@ -52,7 +57,7 @@
                         <div class="col-sm-6">
                             <h4 class="font-alt">Additional info</h4><br />
                             <p>Violin is the most beautiful instrument in the world (I believe), learn to play it.</p>
-                            <img src="im_violin1.jpg" />
+                            <img src="assets/images/im_violin1.jpg" />
                             <hr />
                         </div>
                     </div>

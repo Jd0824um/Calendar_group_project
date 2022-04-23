@@ -10,47 +10,47 @@ session_start();
         <div class="collapse navbar-collapse" id="custom-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <?php if (isset($_SESSION["authenticated"])) : ?>
-                <li>
-                    <a href="index.php">Home</a>
-                </li>
-                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Me</a>
-                    <ul class="dropdown-menu">
-                      <li>
-                          <a href="Calendar.php">Calendar</a>
-                        </li>
-                      <li>
-                          <a href="profile.php">Profile</a>
-                        </li>
-                      <li>
-                          <a href="UpdateUser.php">Update User</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">System</a>
-                    <ul class="dropdown-menu">
                     <li>
-                        <a href="contact.php">Contact Us</a>
+                        <a href="index.php">Home</a>
                     </li>
                     <li>
-                        <a href="logout.php">Logout</a>
+                        <a href="Calendar.php">Calendar</a>
                     </li>
-                    </ul>
-                </li>
+                    <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Me</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="profile.php">Profile</a>
+                            </li>
+                            <li>
+                                <a href="UpdateUser.php">Update User</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">System</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="contact.php">Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="logout.php">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
                 <?php else : ?>
-                <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">System</a>
-                  <ul class="dropdown-menu">
-                    <li>
-                        <a href="contact.php">Contact Us</a>
+                    <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">System</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="contact.php">Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="register.php">Register</a>
+                            </li>
+                            <li>
+                                <a href="LoginPage.php">Login</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="register.php">Register</a>
-                    </li>
-                    <li>
-                        <a href="LoginPage.php">Login</a>
-                    </li>
-                  </ul>
-                </li>
                 <?php endif ?>
             </ul>
         </div>

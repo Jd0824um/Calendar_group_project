@@ -13,7 +13,7 @@
         </div>
         <?php include 'navbar.php'; ?>
         <div class="main">
-            <section class="module bg-dark-60 contact-page-header bg-dark" data-background="registerImg.jpg">
+            <section class="module bg-dark-60 contact-page-header bg-dark" data-background="assets/images/registerImg.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
