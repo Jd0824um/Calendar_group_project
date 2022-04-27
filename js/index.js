@@ -468,6 +468,10 @@ function remove_event() {
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.send("studentFullName=" + selected_event.nam + "&dateYear=" + selected_event.date_year + "&dateMonth=" + selected_event.date_month + "&dateDay=" + selected_event.date_day + "&timeFrom=" + selected_event.time_from + "&timeTo=" + selected_event.time_to + "&appointmentNotes=" + selected_event.notes);
     }
+	else
+	{
+		alert("Select an event on the calendar to remove it");
+	}
 }
 
 
