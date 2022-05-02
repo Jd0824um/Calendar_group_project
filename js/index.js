@@ -116,7 +116,7 @@ Cal.prototype.showMonth = function(y, m) {
                 if (db_students[x].db_events[b].date_year == y && db_students[x].db_events[b].date_month == m && db_students[x].db_events[b].date_day == i) {
                     var tid = "month= " + m;
                     html += '<p></p>';
-                    html += '<span style="font-size:10px" onMouseOver="this.style.cursor=\'pointer\'" onclick="select_event(this)"'
+                    html += '<span style="font-size:16px" onMouseOver="this.style.cursor=\'pointer\'" onclick="select_event(this)"'
                     html += 'data-value_nam="' + db_students[x].nam + '"';
                     html += 'data-value_year="' + y + '"';
                     html += 'data-value_month="' + m + '"';
@@ -165,16 +165,16 @@ Cal.prototype.showMonth = function(y, m) {
 
 
 function select_event(event) {
-    if (selected_event != null) {
-        selected_event.style = 'width:100%;background-color:#efefef;';
+    if (selected_btn_event != null) {
+        selected_btn_event.style = 'width:100%;background-color:white;';
         var html = "";
         var time_from = get_formatted_time(selected_event.time_from);
         var time_to = get_formatted_time(selected_event.time_to);
         html += time_from + '-' + time_to + ' ';
         html += selected_event.nam;
-        selected_event.innerHTML = html;
+        selected_btn_event.innerHTML = html;
     }
-    selected_event = event;
+    selected_btn_event = event;
     event.style = 'width:100%;background-color:#40ff00;';
 
     for (var aa = 0; aa < num_students; aa++) {
@@ -239,7 +239,7 @@ var db_students = [];
 var num_students = 0;
 var selected_student;
 var selected_event;
-var selected_event;
+var selected_btn_event;
 
 
 class Student {
