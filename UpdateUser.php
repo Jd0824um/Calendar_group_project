@@ -1,3 +1,10 @@
+<?php
+  session_start();
+  if (!isset($_SESSION["authenticated"])) {
+    echo "<script> location.href='LoginPage.php'; </script>";
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
