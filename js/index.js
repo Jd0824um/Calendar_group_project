@@ -165,8 +165,7 @@ Cal.prototype.showMonth = function(y, m) {
 
 
 function select_event(event) {
-    alert(selected_event);
-    if (selected_event != undefined) {
+    if (selected_event != null) {
         selected_event.style = 'width:100%;background-color:#efefef;';
         var html = "";
         var time_from = get_formatted_time(selected_event.time_from);
